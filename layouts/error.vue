@@ -39,6 +39,9 @@ export default {
 </script>
 
 <style scoped>
+html {
+  font-family: 'Roboto', sans-serif;
+}
 h1 {
   font-size: 20px;
 }
