@@ -11,7 +11,7 @@
         plain
         nuxt
         :to="item.to"
-        class="hidden-sm-and-down"
+        class="mx-3 hidden-sm-and-down"
       >
         {{ item.title }}
       </v-btn>
@@ -44,6 +44,7 @@
 
 <script>
 export default {
+  name: 'TopNav',
   data() {
     return {
       title: 'Knuckles Kids',
