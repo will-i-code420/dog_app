@@ -1,6 +1,7 @@
 <template lang="html">
   <nav>
     <v-app-bar app flat>
+      <v-container class="py-0 fill-height">
       <v-app-bar-title>
         {{ title }}
       </v-app-bar-title>
@@ -16,6 +17,7 @@
         {{ item.title }}
       </v-btn>
       <v-app-bar-nav-icon @click="mobile = !mobile" class="hidden-md-and-up"></v-app-bar-nav-icon>
+      </v-container>
     </v-app-bar>
     <v-navigation-drawer app right v-model="mobile" temporary floating>
       <v-list
