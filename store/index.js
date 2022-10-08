@@ -13,7 +13,11 @@ const createStore = () => {
       isAdmin: false
     },
     mutations: {},
-    actions: {},
+    actions: {
+      async nuxtServerInit({ dispatch }) {
+        await dispatch('dogs/getAllDogs')
+      }
+    },
     getters: {
       getIsLoggedIn(state) {
         return state.isLoggedIn
