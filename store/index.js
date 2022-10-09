@@ -1,5 +1,7 @@
 import { Store } from 'vuex'
 import dogsModule from './dogs/index'
+import { signInWithEmailAndPassword } from 'firebase/auth'
+import { auth } from '~/plugins/firebase.js'
 
 const createStore = () => {
   return new Store({
@@ -8,14 +10,19 @@ const createStore = () => {
       dogs: dogsModule
     },
     state: {
-      user: {},
-      isLoggedIn: false,
-      isAdmin: false
+      userToken: null
     },
     mutations: {},
     actions: {
       async nuxtServerInit({ dispatch }) {
         await dispatch('dogs/getAllDogs')
+      },
+      async login({ commit }, loginForm) {
+        try {
+
+        } catch (e) {
+          console.log(e)
+        }
       }
     },
     getters: {
