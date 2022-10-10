@@ -12,7 +12,8 @@ import NewDog from '~/components/dogs/NewDog.vue'
 export default {
   components: {
     NewDog
-  }
+  },
+  middleware: ['check-auth', 'auth']
 }
 </script>
 

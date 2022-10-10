@@ -19,15 +19,17 @@ const createStore = () => {
       },
       async login({ commit }, loginForm) {
         try {
-
+          const { email, password } = loginForm
+          const user = await signInWithEmailAndPassword(auth, email, password)
+          console.log(user)
         } catch (e) {
           console.log(e)
         }
       }
     },
     getters: {
-      getIsLoggedIn(state) {
-        return state.isLoggedIn
+      isAuth(state) {
+        return state.userToken != null
       }
     }
   })
