@@ -1,5 +1,6 @@
 import { Store } from 'vuex'
 import dogsModule from './dogs/index'
+import Cookie from 'js-cookie'
 
 const createStore = () => {
   return new Store({
@@ -23,6 +24,29 @@ const createStore = () => {
         } catch (e) {
           console.log(e)
         }
+      },
+      initAuth({ commit, dispatch }, req) {
+        let token
+        let tokenExpiration
+        if (req) {
+          if (!req.headers.cookie) return
+          const tokenCookie = req.headers.cookie.split(';').find(cookie => {
+            cookie.trim().startsWith('jwt=')
+          })
+          if (!tokenCookie) return
+          token = tokenCookie.split('=')[1]
+          tokenExpiration = req.headers.cookie.split(';').find(cookie => {
+            cookie.trim().startsWith('jwtExpiration=')
+          }).split('=')[1]
+        } else {
+          token = localStorage.getItem('token')
+          tokenExpiration = localStorage.getItem('tokenExpiration')
+        }
+        if (new Date().getTime() > +tokenExpiration || !token) {
+          dispatch('logout')
+          return
+        }
+        commit('setToken', token)
       }
     },
     getters: {
