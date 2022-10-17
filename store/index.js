@@ -11,7 +11,11 @@ const createStore = () => {
     state: {
       userToken: null
     },
-    mutations: {},
+    mutations: {
+      setToken(state, token) {
+        state.userToken = token
+      }
+    },
     actions: {
       async nuxtServerInit({ dispatch }) {
         await dispatch('dogs/getAllDogs')
