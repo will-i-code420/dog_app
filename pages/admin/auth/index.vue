@@ -1,5 +1,9 @@
 <template lang="html">
-  <LoginForm @login-user="login"/>
+  <v-row justify="center" align="center">
+    <v-col sm="10" md="8" xl="6">
+      <LoginForm @login-user="login"/>
+    </v-col>
+  </v-row>
 </template>
 
 <script>

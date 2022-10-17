@@ -1,7 +1,5 @@
 import { Store } from 'vuex'
 import dogsModule from './dogs/index'
-import { signInWithEmailAndPassword } from 'firebase/auth'
-import { auth } from '~/plugins/firebase.js'
 
 const createStore = () => {
   return new Store({
@@ -20,7 +18,7 @@ const createStore = () => {
       async login({ commit }, loginForm) {
         try {
           const { email, password } = loginForm
-          const user = await signInWithEmailAndPassword(auth, email, password)
+          const user = await this.$fire.signInWithEmailAndPassword(this.$fire.auth, email, password)
           console.log(user)
         } catch (e) {
           console.log(e)
