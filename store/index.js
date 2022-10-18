@@ -16,6 +16,9 @@ const createStore = () => {
     mutations: {
       setUser(state, user) {
         state.user = user
+      },
+      logout(state) {
+        state.user = null
       }
     },
     actions: {
@@ -37,6 +40,13 @@ const createStore = () => {
         } catch (e) {
           console.log(e)
         }
+      },
+      logout({ commit }) {
+        Cookie.remove('access_token')
+        if (process.client) {
+          localStorage.removeItem('access_token')
+        }
+        commit('logout')
       },
       initAuth({ commit, dispatch }, req) {
         let token
