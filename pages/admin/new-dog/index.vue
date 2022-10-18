@@ -12,7 +12,7 @@ export default {
   methods: {
     async submitDog(dogForm) {
       try {
-        await this.$store.dispatch('addDog', dogForm)
+        await this.$store.dispatch('dogs/addDog', dogForm)
       } catch (e) {
         console.log(e)
       }

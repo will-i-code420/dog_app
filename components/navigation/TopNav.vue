@@ -16,6 +16,14 @@
       >
         {{ item.title }}
       </v-btn>
+      <v-btn
+        v-if="isAuth"
+        plain
+        class="mx-3 hidden-sm-and-down"
+        @click="logout"
+      >
+        Logout
+      </v-btn>
       <v-app-bar-nav-icon @click="mobile = !mobile" class="hidden-md-and-up"></v-app-bar-nav-icon>
       </v-container>
     </v-app-bar>
@@ -56,6 +64,21 @@ export default {
         { icon: '', title: 'About', to: '/about' },
         { icon: '', title: 'Contact', to: '/contact' }
       ]
+    }
+  },
+  computed: {
+    isAuth() {
+      return this.$store.getters.isAuth
+    }
+  },
+  methods: {
+    async logout() {
+      try {
+        await this.$store.dispatch('logout')
+        this.$router.push('/')
+      } catch (e) {
+        console.log(e)
+      }
     }
   }
 }

@@ -72,7 +72,6 @@
         v-model="dogForm.dob"
         no-title
         @input="dobMenu = false"
-        :min="minDate"
       ></v-date-picker>
     </v-menu>
     <v-text-field
@@ -162,13 +161,13 @@ export default {
   },
   computed: {
     dobDisplayValue() {
-      return this.dob
+      return this.dogForm.dob
     }
   },
   methods: {
     validate() {
       if (this.$refs.form.validate()) {
-        this.$emits('submit-dog', this.dogForm)
+        this.$emit('submit-dog', this.dogForm)
       }
     },
     reset() {

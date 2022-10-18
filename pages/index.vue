@@ -4,7 +4,7 @@
       <TheHero />
     </article>
     <article class="">
-      <h2 class="my-5 text-center">Current Puppies Available</h2>
+      <h2 class="my-5 text-center">All Our Dogs</h2>
       <DogList :dogs="loadedDogs"/>
     </article>
   </section>

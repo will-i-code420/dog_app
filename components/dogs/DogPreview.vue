@@ -1,5 +1,5 @@
 <template lang="html">
-  <v-card :to="{path: `/dogs/${dog.name}`}">
+  <v-card :to="{ path: `/dogs/${dog.name}` }">
     <v-img src="https://cdn.pixabay.com/photo/2016/12/13/05/15/puppy-1903313_1280.jpg">
     </v-img>
       <v-card-title class="justify-center text-uppercase">

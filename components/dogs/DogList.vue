@@ -7,11 +7,7 @@
 </template>
 
 <script>
-import DogPreview from '~/components/dogs/DogPreview.vue'
 export default {
-  components: {
-    DogPreview
-  },
   props: {
     dogs: {
       type: Array,
