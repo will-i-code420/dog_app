@@ -77,6 +77,9 @@ const createStore = () => {
     getters: {
       isAuth(state) {
         return state.user != null
+      },
+      getUserInfo(state) {
+        return state.user
       }
     }
   })
