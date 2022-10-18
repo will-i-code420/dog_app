@@ -11,7 +11,8 @@ import {
 import {
   getFirestore,
   collection,
-  getDocs
+  getDocs,
+  addDoc
  } from 'firebase/firestore'
 // import { getAnalytics } from 'firebase/analytics'
 // TODO: Add SDKs for Firebase products that you want to use
@@ -68,6 +69,7 @@ export default (
     sendEmailVerification,
     db,
     collection,
-    getDocs
+    getDocs,
+    addDoc
   })
 }

@@ -127,18 +127,20 @@ export default {
   data() {
     return {
       valid: true,
-      dogForm: this.dog ? { ...this.dog } : {
-        name: '',
-        color: '',
-        style: '',
-        gender: '',
-        dob: null,
-        weight: null,
-        parents: '',
-        imgURL: '',
-        price: null,
-        description: ''
-      }
+      dogForm: this.dog
+        ? { ...this.dog }
+        : {
+            name: '',
+            color: '',
+            style: '',
+            gender: '',
+            dob: null,
+            weight: null,
+            parents: '',
+            imgURL: '',
+            price: null,
+            description: ''
+          },
       nameRules: [
         v => !!v || 'Name is required',
         v => (v && v.length <= 20) || 'Name must be less than 20 characters'
@@ -155,7 +157,7 @@ export default {
       weightRules: [
         v => !!v || 'Weight is required',
         v => (v && v <= 40) || 'No way its over 40lbs'
-      ],
+      ]
     }
   },
   computed: {

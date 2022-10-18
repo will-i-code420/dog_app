@@ -11,5 +11,9 @@ export default {
     } catch (e) {
       console.log(e)
     }
+  },
+  async addDog({ commit }, dogForm) {
+    const data = await this.$fire.addDoc(this.$fire.collection(this.$fire.db, 'dogs'), { ...dogForm })
+    console.log(data)
   }
 }

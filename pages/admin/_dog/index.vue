@@ -1,5 +1,9 @@
 <template lang="html">
-  <h1>Edit Single Dog</h1>
+  <v-row justify="center" align="center">
+    <v-col sm="10" md="8" xl="6">
+      <DogForm />
+    </v-col>
+  </v-row>
 </template>
 
 <script>
