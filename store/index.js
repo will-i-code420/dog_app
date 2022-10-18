@@ -1,6 +1,8 @@
 import { Store } from 'vuex'
-import dogsModule from './dogs/index'
 import Cookie from 'js-cookie'
+import JWTDecode from 'jwt-decode'
+import cookieparser from 'cookieparser'
+import dogsModule from './dogs/index'
 
 const createStore = () => {
   return new Store({
@@ -9,53 +11,58 @@ const createStore = () => {
       dogs: dogsModule
     },
     state: {
-      userToken: null
+      user: null
     },
     mutations: {
-      setToken(state, token) {
-        state.userToken = token
+      setUser(state, user) {
+        state.user = user
       }
     },
     actions: {
+      /*
       async nuxtServerInit({ dispatch }) {
         await dispatch('dogs/getAllDogs')
       },
+      */
       async login({ commit }, loginForm) {
         try {
-          const { email, password } = loginForm
-          const user = await this.$fire.signInWithEmailAndPassword(this.$fire.auth, email, password)
-          console.log(user)
+          await this.$fire.signInWithEmailAndPassword(this.$fire.auth, loginForm.email, loginForm.password)
+          const token = await this.$fire.auth.currentUser.getIdToken()
+          console.log('user info returned', this.$fire.auth.currentUser)
+          console.log('jwt-token from getIdToken', token)
+          const { uid, displayName, email } = this.$fire.auth.currentUser
+          Cookie.set('access_token', token)
+          localStorage.setItem('access_token', token)
+          commit('setUser', { uid, displayName, email })
         } catch (e) {
           console.log(e)
         }
       },
       initAuth({ commit, dispatch }, req) {
         let token
-        let tokenExpiration
         if (req) {
-          if (!req.headers.cookie) return
-          const tokenCookie = req.headers.cookie.split(';').find(cookie => {
-            cookie.trim().startsWith('jwt=')
-          })
-          if (!tokenCookie) return
-          token = tokenCookie.split('=')[1]
-          tokenExpiration = req.headers.cookie.split(';').find(cookie => {
-            cookie.trim().startsWith('jwtExpiration=')
-          }).split('=')[1]
+          if (!req.headers.cookie) {
+            return
+          }
+          const parsedCookie = cookieparser.parse(req.headers.cookie)
+          const accessTokenCookie = parsedCookie.access_token
+          if (!accessTokenCookie) {
+            return
+          }
+          token = JWTDecode(accessTokenCookie)
         } else {
-          token = localStorage.getItem('token')
-          tokenExpiration = localStorage.getItem('tokenExpiration')
+          token = JWTDecode(localStorage.getItem('access_token'))
         }
-        if (new Date().getTime() > +tokenExpiration || !token) {
-          dispatch('logout')
-          return
-        }
-        commit('setToken', token)
+        commit('setUser', {
+          uid: token.user_id,
+          displayName: token.displayName,
+          email: token.email
+        })
       }
     },
     getters: {
       isAuth(state) {
-        return state.userToken != null
+        return state.user != null
       }
     }
   })
