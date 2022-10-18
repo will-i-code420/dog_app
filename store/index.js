@@ -32,7 +32,6 @@ const createStore = () => {
           await this.$fire.signInWithEmailAndPassword(this.$fire.auth, loginForm.email, loginForm.password)
           const token = await this.$fire.auth.currentUser.getIdToken()
           console.log('user info returned', this.$fire.auth.currentUser)
-          console.log('jwt-token from getIdToken', token)
           const { uid, displayName, email } = this.$fire.auth.currentUser
           Cookie.set('access_token', token)
           localStorage.setItem('access_token', token)
@@ -41,12 +40,17 @@ const createStore = () => {
           console.log(e)
         }
       },
-      logout({ commit }) {
-        Cookie.remove('access_token')
-        if (process.client) {
-          localStorage.removeItem('access_token')
+      async logout({ commit }) {
+        try {
+          Cookie.remove('access_token')
+          if (process.client) {
+            localStorage.removeItem('access_token')
+          }
+          await this.$fire.auth.signOut(this.$fire.auth)
+          commit('logout')
+        } catch (e) {
+          console.log(e)
         }
-        commit('logout')
       },
       initAuth({ commit, dispatch }, req) {
         let token
