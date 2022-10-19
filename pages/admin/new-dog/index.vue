@@ -13,6 +13,7 @@ export default {
     async submitDog(dogForm) {
       try {
         await this.$store.dispatch('dogs/addDog', dogForm)
+        this.$router.push('/admin')
       } catch (e) {
         console.log(e)
       }
