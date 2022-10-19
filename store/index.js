@@ -22,11 +22,9 @@ const createStore = () => {
       }
     },
     actions: {
-      /*
       async nuxtServerInit({ dispatch }) {
         await dispatch('dogs/getAllDogs')
       },
-      */
       async login({ commit }, loginForm) {
         try {
           await this.$fire.signInWithEmailAndPassword(this.$fire.auth, loginForm.email, loginForm.password)

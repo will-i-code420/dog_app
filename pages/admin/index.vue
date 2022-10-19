@@ -16,7 +16,7 @@
       >
         Add New Dog
       </v-btn>
-      <DogList :dogs="loadedDogs"/>
+      <DogList admin :dogs="loadedDogs"/>
     </article>
   </section>
 </template>
