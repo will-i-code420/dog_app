@@ -8,7 +8,7 @@
       <v-btn color="info" text nuxt :to="{ path: `/dogs/${dog.name}` }">
         View
       </v-btn>
-      <v-btn v-if="admin" class="danger" text nuxt :to="{ path: `/admin/${dog.id}` }">
+      <v-btn v-if="isAuth" class="danger" text nuxt :to="{ path: `/admin/${dog.id}` }">
         Edit
       </v-btn>
     </v-card-actions>
@@ -21,10 +21,11 @@ export default {
     dog: {
       type: Object,
       required: true
-    },
-    admin: {
-      type: Boolean,
-      required: true
+    }
+  },
+  computed: {
+    isAuth() {
+      return this.$store.getters.isAuth
     }
   }
 }

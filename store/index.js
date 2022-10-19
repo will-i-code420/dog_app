@@ -22,14 +22,16 @@ const createStore = () => {
       }
     },
     actions: {
+      /*
       async nuxtServerInit({ dispatch }) {
         await dispatch('dogs/getAllDogs')
       },
+      */
       async login({ commit }, loginForm) {
         try {
           await this.$fire.signInWithEmailAndPassword(this.$fire.auth, loginForm.email, loginForm.password)
           const token = await this.$fire.auth.currentUser.getIdToken()
-          console.log('user info returned', this.$fire.auth.currentUser)
+          console.log('token', token)
           const { uid, displayName, email } = this.$fire.auth.currentUser
           Cookie.set('access_token', token)
           localStorage.setItem('access_token', token)

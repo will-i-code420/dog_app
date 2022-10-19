@@ -25,5 +25,13 @@ export default {
     } catch (e) {
       console.log(e)
     }
+  },
+  async deleteDog({ commit }, dogId) {
+    try {
+      await this.$fire.deleteDoc(this.$fire.doc(this.$fire.db, 'dogs', dogId))
+      commit('deleteDog', dogId)
+    } catch (e) {
+      console.log(e)
+    }
   }
 }

@@ -111,12 +111,20 @@
     >
       Reset Form
     </v-btn>
+    <v-btn
+      v-if="isAuth"
+      color="error"
+      class="mr-4"
+      @click="removeDog"
+    >
+      Remove Dog
+    </v-btn>
   </v-form>
 </template>
 
 <script>
 export default {
-  emits: ['submit-dog'],
+  emits: ['submit-dog', 'remove-dog'],
   props: {
     dog: {
       type: Object,
@@ -162,6 +170,9 @@ export default {
   computed: {
     dobDisplayValue() {
       return this.dogForm.dob
+    },
+    isAuth() {
+      return this.$store.getters.isAuth
     }
   },
   methods: {
@@ -172,6 +183,9 @@ export default {
     },
     reset() {
       this.$refs.form.reset()
+    },
+    removeDog() {
+      this.$emit('remove-dog', this.dog.id)
     }
   }
 }

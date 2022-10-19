@@ -8,5 +8,9 @@ export default {
   editDog(state, editedDog) {
     const dogIdx = state.allDogs.findIndex(dog => dog.id === editedDog.id)
     state.allDogs[dogIdx] = editedDog
+  },
+  deleteDog(state, dogId) {
+    const dogIdx = state.allDogs.findIndex(dog => dog.id === dogId)
+    state.allDogs.splice(dogIdx,1)
   }
 }
